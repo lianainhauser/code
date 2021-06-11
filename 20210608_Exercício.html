@@ -1,0 +1,51 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+            background-color: #f3f2fa;   
+        }
+
+        canvas {
+            border: 1px solid rgb(211, 20, 20);
+        }
+
+    </style>
+    <script>
+        
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        // exercício: ler doc do getImageData (RGB + transparência para cada pixel), putImageData 
+        // bonus point: começar a entender como faz para transformar linha e coluna, lembrando que retorna 4 informações por pixel, 
+        //um atrás do outro
+
+        function anim() {
+            //ctx.getImageData é uma função que retorna os pixels da área que vc delimitar
+           var W = 10;
+           var H = 10;
+
+            var pixels = ctx.getImageData(0, 0, W, H); 
+            
+            //i = contador do for
+            for(var i = 0; i < (W * H * 4) ; i++){
+                //PINTAR O QUADRADO DE VERMELHO
+                pixels.data[i] = 255;
+                ctx.fillStyle = "red";
+                ctx.fillRect(10, 10, 50, 50);
+            } 
+            
+            ctx.putImageData(pixels, 0, 0);
+
+            console.log(pixels)
+        }
+        
+        anim();
+
+    </script>
+</body>
+</html> 

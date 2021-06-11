@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+
+        <script>
+            //(n-1)! = (n-1)∙(n-2)∙(n-3)...
+            
+            var resultado_parcial = 4;
+            //var A0 = 1;
+            //var An = resultado_parcial;
+            
+            //console.log(A0);
+            for (var i = resultado_parcial; i > 1; i--) {
+                resultado_parcial = resultado_parcial * (i - 1);
+            }
+            console.log(resultado_parcial);
+            
+        </script>
+    </body>
+</html>

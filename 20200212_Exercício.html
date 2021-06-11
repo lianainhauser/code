@@ -1,0 +1,68 @@
+<html>
+    <head>
+
+    </head> 
+    <body>
+        <script>
+var a = document.createElement('canvas')
+document.body.appendChild(a);
+a.style = "border: 1px solid black";
+a.width = 1500;
+a.height = 400;
+ctx = a.getContext('2d');
+
+var velx = 2;
+var vely = 1;
+var grav = 0.05;
+var x = 20;
+var y = 20;
+var radius = 10;
+var bounce = 0.7;
+
+function anim() {
+    ctx.clearRect(0, 0, a.width, a.height);
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.arc(x, y, radius, 0, 2*Math.PI);
+    ctx.fill();
+    
+    x = x + velx; 
+    y = y + vely;
+    vely = vely + grav;
+
+    requestAnimationFrame(anim);
+
+    if (x + radius > a.width || x - radius < 0){
+            velx *= -1;
+        }
+    
+    
+          // Ball hits the floor
+          if (y + radius > a.height){// ||
+          
+          // Re-positioning on the base
+         y = a.height - radius;
+          //bounce the ball
+            vely *= -bounce;
+          //do this otherwise, ball never stops bouncing
+            if(vely<0 && vely>-2.1)
+                       vely=0;
+          //do this otherwise ball never stops on xaxis
+           if(Math.abs(velx)<1.1)
+               velx=0;
+     
+           xF();
+  }
+}
+
+function xF(){
+             if(velx>0)
+                 velx = velx - xFriction;
+             if(velx<0)
+                 velx = velx + xFriction;
+    }
+
+anim();
+        </script>
+    </body>
+</html>

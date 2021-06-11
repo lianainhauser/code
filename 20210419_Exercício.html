@@ -1,0 +1,77 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+            background-color: #01010e;   
+        }
+    </style>
+    <script>
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        var flakes = [];
+        for(i=0; i<500; i++){
+            flakes.push(initFlake());
+        }                 
+        
+        function drawFlake(desenhaai){
+            ctx.fillStyle = "rgba(255, 255, 255," + desenhaai.opacidade + ")";
+            //ctx.fillStyle = `rgba(255, 255, 255, ${desenhaai.opacidade})`;
+            ctx.beginPath();
+            ctx.arc(desenhaai.x + desenhaai.balancinho, desenhaai.y, desenhaai.radius, 0, Math.PI*2);
+            ctx.fill();
+        } 
+        
+        function updateFlake(zeDaSilva){ 
+            //zeDaSilva.y = zeDaSilva.y + zeDaSilva.yspeed 
+            zeDaSilva.balancinho = Math.sin(zeDaSilva.y / 180 * Math.PI) * 3;
+            zeDaSilva.y += zeDaSilva.yspeed  
+            // incluir IF se eu passei do limite, reseta
+            if (zeDaSilva.y > a.height) {
+                resetFlake(zeDaSilva); //zeDaSilva.y = 0; funciona, mas não é recomendado
+            }
+            zeDaSilva.balancinho = Math.sin(zeDaSilva.x / 180 * Math.PI) * 10;
+            zeDaSilva.x += zeDaSilva.xspeed;  
+        }
+        
+        
+        function initFlake (){
+            var newFlake =  {};
+            resetFlake(newFlake);
+            //sempre retornar um objeto depois de criá-lo
+            return (newFlake);
+        }
+        
+        function resetFlake (flake){
+            var larguraExtra = 700
+            flake.y = 0;
+            flake.x = -larguraExtra + Math.random() * (a.width + larguraExtra);
+            flake.xspeed = 0.7;
+            flake.z = Math.random() * 4; 
+            /*EXERCÍCIO: quanto maior o número z, mais longe está, mais apagado 
+            queremos que fique. para ficar opaco, precisamos usar um número diretamente
+            proporcional ao Z, que varie entre 0 e 1 (0% e 100% de opacidade) */
+            //flake.opacidade = 0.75;
+            flake.radius = 3 / (flake.z + 1);  // 1 para garantir no mínimo 1 
+            flake.yspeed = 3 / (flake.z + 1);
+            flake.opacidade = 1 - (flake.z/5);
+        }
+        
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            for(i=0; i<flakes.length; i++){
+                drawFlake(flakes[i]);
+                updateFlake(flakes[i]);          
+            }
+        }
+        
+        anim();
+    </script>
+</body>
+</html>

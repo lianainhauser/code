@@ -1,0 +1,29 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+            background-color: #01010e;   
+        }
+    </style>
+    <script>
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            for(i=0; i<flakes.length; i++){
+                drawFlake(flakes[i]);
+                updateFlake(flakes[i]);          
+            }
+        }
+        
+        anim();
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+        <canvas width="800" height="400" style="border: 1px solid #2e04ff;" id="bla"></canvas>
+
+        <script>
+            var c = document.getElementById('bla');
+            var ctx = c.getContext('2d');
+
+            var x_middle = c.width / 2;
+            var y_middle = c.height / 2;
+            radius = 100;
+
+            ctx.beginPath();
+            ctx.rect(x_middle - radius, y_middle - radius, radius * 2, radius * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(x_middle, y_middle, radius, 0, Math.PI*2);
+            ctx.stroke();
+
+            var contadorrect = 0;
+            var contadorarc = 0;
+            var historico = [];
+         
+            function draw() {
+               x = x_middle - Math.floor((Math.random() - .5) * radius * 2);
+               y = y_middle + Math.floor((Math.random() - .5) * radius * 2);
+                contadorrect++;
+                
+                var distance = ((x - x_middle)**2 + (y - y_middle)**2);
+                ctx.fillStyle = "blue"
+
+                if ((distance) < (radius)**2) {
+                ctx.fillStyle = "red";
+                contadorarc++;    
+                };
+    
+                var estimativaPI = contadorarc / contadorrect *4; 
+                
+                historico.push(estimativaPI);
+                if ( historico.length > 800){
+                    historico.shift();
+                }
+
+                ctx.clearRect(0, 300, 800, 380);
+
+                for (i = 0; i < historico.length; i++){
+                    
+                    ctx.fillRect(i, (historico[i]*20)+300, 5, 5);
+
+                    //ajustar o gráfico porque está ao contrário: de ponta-cabeça (para quinta)
+                    //ajustar a escala para ser dinâmica (para terça)
+                    
+                }
+                
+                ctx.fillRect(x, y, 3, 3)
+                
+                ctx.clearRect(10, 11, 300, 50);
+
+                if (contadorrect%500==0){
+                    console.log(historico.length);
+                    
+                }
+
+                ctx.fillText(estimativaPI, 10, 30);
+
+                requestAnimationFrame(draw);
+           }
+
+            draw();
+        </script>
+    </body>
+</html>

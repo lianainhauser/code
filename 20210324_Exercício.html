@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+        <script>
+
+        //chamada de função recursiva
+        // n! = n * (n-1)!
+        
+        /*function fatorial(numero) {
+            if (numero <= 1) {
+                return 1;
+            }
+
+            return numero * fatorial(numero - 1);
+        }*/
+
+        // PA A(n)= A(n-1) * R
+        
+        /*function pa(A0, R, n) {
+            if (n <= 1) {
+                return A0;
+            }
+
+            return pa(A0, R, n-1) + R;
+        }*/ //Math
+        
+        // PG A(n)= a1 * R^(n-1)
+
+        function pg(A1, R, n) {
+            if (n <= 1) {
+                return A1;
+            }
+
+            return pg(A1, R, n-1) *R;
+
+        }
+
+
+        //console.log(fatorial(3));
+
+        //console.log(pa(3,2,3));
+
+        console.log(pg(3,2,4));
+
+        </script>
+    </body>
+</html>

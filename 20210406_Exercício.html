@@ -1,0 +1,69 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+         background-color: #01010e;   
+        }
+    </style>
+    <script>
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        var flakes = [];
+        for(i=0; i<250; i++){
+            flakes.push(initFlake());
+        }                 
+        
+        function drawFlake(desenhaai){
+            ctx.fillStyle = "gray";
+            ctx.beginPath();
+            ctx.arc(desenhaai.x + desenhaai.balancinho, desenhaai.y, desenhaai.radius, 0, Math.PI*2);
+            ctx.fill();
+            
+        } 
+        
+        function updateFlake(zeDaSilva){ 
+            //zeDaSilva.y = zeDaSilva.y + zeDaSilva.yspeed 
+            zeDaSilva.balancinho = Math.sin(zeDaSilva.y / 180 * Math.PI) * 3;
+            zeDaSilva.y += zeDaSilva.yspeed  
+            // incluir IF se eu passei do limite, reseta
+            if (zeDaSilva.y > a.height) {
+                resetFlake(zeDaSilva); //zeDaSilva.y = 0; funciona, mas não é recomendado
+            }
+        }
+        
+        
+        function initFlake (){
+            var newFlake =  {};
+            resetFlake(newFlake);
+            //sempre retornar um objeto depois de criá-lo
+            return (newFlake);
+        }
+        
+        function resetFlake (flake){
+            flake.y = 0;
+            flake.x = Math.random() * a.width;
+            flake.z = Math.random() * 4;
+            flake.radius = 3 / (flake.z + 1);  // 1 para garantir no mínimo 1 
+            flake.yspeed = 2 / (flake.z + 1);
+            
+        }
+        
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            for(i=0; i<flakes.length; i++){
+                drawFlake(flakes[i]);
+                updateFlake(flakes[i]);          
+            }
+        }
+        
+        anim();
+    </script>
+</body>
+</html>

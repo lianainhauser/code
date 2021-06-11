@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+        <canvas width="800" height="400" style="border: 1px solid #2e04ff;" id="bla"></canvas>
+
+        <script>
+            var c = document.getElementById('bla');
+            var ctx = c.getContext('2d');
+
+            var x_middle = c.width / 2;
+            var y_middle = c.height / 2;
+            radius = 100;
+
+            ctx.beginPath();
+            ctx.rect(x_middle - radius, y_middle - radius, radius * 2, radius * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(x_middle, y_middle, radius, 0, Math.PI*2);
+            ctx.stroke();
+
+            var contador = 0;
+         
+            function draw() {
+               x = x_middle - Math.floor((Math.random() - .5) * radius * 2);
+               y = y_middle + Math.floor((Math.random() - .5) * radius * 2);
+                contador++;
+                
+                var distance = ((x - x_middle)**2 + (y - y_middle)**2);
+                ctx.fillStyle = "red"
+
+                if ((distance) > (radius)**2) {
+                ctx.fillStyle = "blue";
+                };
+            
+                ctx.fillRect(x, y, 1, 1)
+                /* debugar o que acontece na sentença, para saber o que acontece. neste caso, no if
+                console.log('xy----' + x*x + y*y + 'radius---' + radius*radius);*/
+
+/*                if ((x*x + y*y) > (radius*radius)) {
+                    ctx.fillStyle = "red";
+                    console.log(contador);
+
+                };
+
+                /*if (Math.exp(x:2) + Math.exp(y:2)) > (Math.exp(radius:2)) {
+                ctx.fillStyle = "blue";
+                };
+
+                if (Math.exp(x:2) + Math.exp(y:2)) < (Math.exp(radius:2) {
+                ctx.fillStyle = "red";
+                };*/
+
+                requestAnimationFrame(draw);
+           }
+
+            draw();
+        </script>
+    </body>
+</html>

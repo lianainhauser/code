@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+
+        <script>
+            // PA A(n)= A(n-1) * R
+            // PG A(n)= a1 * q^(n-1)
+            
+            //Abaixo temos a PA
+            /*var ratio = 23;
+            var A0 = 48;
+            var An = A0;
+            
+            console.log(A0);
+            for (var i = 0; i < 15; i++) {
+                An = An + ratio;
+                console.log(An);
+            }*/
+
+            //Abaixo temos a PG
+            
+            var ratio = 23;
+            var A0 = 48;
+            var An = A0;
+            
+            console.log(A0);
+            for (var i = 0; i < 15; i++) {
+                An = An * ratio;
+                console.log(An);
+            }
+            
+        </script>
+    </body>
+</html>

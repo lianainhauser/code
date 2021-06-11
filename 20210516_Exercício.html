@@ -1,0 +1,100 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+            background-color: #01010e;   
+        }
+    </style>
+    <script>
+        //a biblioteca começa aqui
+        function Complex(real, imaginary) {
+            this.real = real;
+            this.imaginary = imaginary;
+            
+            this.add = function(other) {
+                var next_real = this.real + other.real;
+                var next_imaginary = this.imaginary + other.imaginary;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.subtract = function(other) {
+                var next_real = this.real - other.real;
+                var next_imaginary = this.imaginary - other.imaginary;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.multiply = function(other) {
+                var next_real = (this.real * other.real) - (this.imaginary * other.imaginary);
+                var next_imaginary = (this.real * other.imaginary) + (this.imaginary * other.real);
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.divide = function(other) {
+                var conjugate = other.conjugate();
+                var denominator = other.multiply(conjugate);
+                var numerator = this.multiply(conjugate);
+                var next_real = numerator.real / denominator.real;
+                var next_imaginary = numerator.imaginary / denominator.real;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.square = function() {
+                return this.multiply(this);
+            };
+            
+            this.conjugate = function() {
+                return new Complex(this.real, - this.imaginary); 
+            };
+            
+            this.modulus = function() {
+                //raiz do número real² + raiz do imaginário²
+                return Math.sqrt(this.real ** 2 + this.imaginary ** 2);
+            };
+
+            /*adicionar na nossa "biblioteca" (lib) de numeros complexos, uma funcao, com o objetivo de otimizar o calculo da "distancia" 
+            (ou modulo) que nao utilize a raiz quadrada, devolva o quadrado do modulo, 
+            na hora de efetuar as comparações, basta a gente lembrar de comparar com o quadrado do resultado que quisermos.*/
+        
+            this.squareOfModulus = function() {
+                return this.real ** 2 + this.imaginary ** 2;  
+            }
+        } //a biblioteca termina aqui
+        
+        /*var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            
+        }/*
+        
+        /*precisa de uma função nova, que receba dois números complexos, 
+        a minhoca e a lagarta e ele retorna o número de vezes que ele conseguiu fazer 
+        (minhoca = minhoca.square().add(lagarta))
+        (o módulo ainda é menor que 10.000, e enquanto for menor,
+        ele calcula) depois retorna o limite de repetições e o break não é necessário*/
+        
+        function times(minhoca, lagarta) {
+            //o i é uma caixinha, a minhoca e lagarta são outras "caixinha"
+            for (i = 0; i < 30; i++) {
+                
+                if (minhoca.squareOfModulus() > 4) {  
+                    //este return funciona depois de calcular o if
+                    return i;
+                }  
+                minhoca = minhoca.square().add(lagarta);
+            } 
+            //normalmente, return é o último elemento da função. se o primeiro retorno não atender, chega neste abaixo
+            return i;
+        }
+        
+
+    </script>
+</body>
+</html> 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+        <body>
+            <canvas width="800" height="400" style="border: 1px solid black;" id="bla"></canvas>
+
+            <script>
+                var c = document.getElementById('bla');
+                var ctx = c.getContext('2d');
+
+                var x = 20;
+                var y = 200;
+
+                var radius = 10;
+                var vel_x = 3;
+                var vel_y= -10;
+
+                var friction = .98;
+                var restitution = .9;
+                var gravity = .3;
+
+                function draw(){
+                    ctx.clearRect(0, 0, c.width, c.height);
+                    ctx.beginPath();
+                    ctx.fillStyle = 'blue';
+                    ctx.arc(x, y, radius, 0, 2*Math.PI)
+                    ctx.fill();
+
+                    x = x + vel_x;
+                    y = y + vel_y;
+                    
+                    if ((x + radius) > c.width) {
+                        vel_x *= -1;
+                   }
+
+                   if ((x - radius) <= 0){
+                       vel_x *= -1;
+                   }
+
+                   if ((y + radius) > c.height) {
+                    vel_y *= -1;
+                    y = c.height - radius;
+                    vel_y *= restitution;
+                    vel_x *= friction; 
+                }
+                vel_y = vel_y + gravity;
+                if (Math.abs(vel_x) < 0.01) {
+                    vel_x = 0
+                }
+                if (Math.abs(vel_y) < 0.16) {
+                    vel_y = 0
+                }
+                console.log(vel_x, vel_y)
+                if 
+    
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            </script>
+        </body>
+    </html>

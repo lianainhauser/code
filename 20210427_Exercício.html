@@ -1,0 +1,76 @@
+<html>
+<head>
+</head> 
+<body>
+    <style> 
+        body { 
+            background-color: #01010e;   
+        }
+    </style>
+    <script>
+        function Complex(real, imaginary) {
+            this.real = real;
+            this.imaginary = imaginary;
+            
+            this.add = function(other) {
+                var next_real = this.real + other.real;
+                var next_imaginary = this.imaginary + other.imaginary;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.subtract = function(other) {
+                var next_real = this.real - other.real;
+                var next_imaginary = this.imaginary - other.imaginary;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.multiply = function(other) {
+                var next_real = (this.real * other.real) - (this.imaginary * other.imaginary);
+                var next_imaginary = (this.real * other.imaginary) + (this.imaginary * other.real);
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.divide = function(other) {
+                var conjugate = other.conjugate();
+                var denominator = other.multiply(conjugate);
+                var numerator = this.multiply(conjugate);
+                var next_real = numerator.real / denominator.real;
+                var next_imaginary = numerator.imaginary / denominator.real;
+                return new Complex(next_real, next_imaginary);
+            };
+            
+            this.square = function() {
+                return this.multiply(this);
+            };
+            
+            this.conjugate = function() {
+                return new Complex(this.real, - this.imaginary); 
+            };
+
+            this.modulus = function() {
+                //raiz do número real² + raiz do imaginário²
+                return Math.sqrt(this.real ** 2 + this.imaginary ** 2);
+            };li
+        }
+        
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            
+        }
+
+        /*precisa de uma função nova, que receba dois números complexos, 
+        a minhoca e a lagarta e ele retorna o número de vezes que ele conseguiu fazer (minhoca = minhoca.square().add(lagarta))
+        (o módulo ainda é menor que 10000, e enquanto for menor,
+        ele calcula) depois retorna o limite de repetições e o break não é necessário
+
+        //anim();
+    </script>
+</body>
+</html>

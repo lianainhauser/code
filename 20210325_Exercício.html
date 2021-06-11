@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+        <script>
+
+        //chamada de função recursiva
+        
+        function fatorial(numero) {
+            if (numero <= 1) {
+                return 1;
+            }
+
+            return numero * fatorial(numero - 1);
+        }
+
+        //P (n, r) = n!/(n-r)!
+        function permutacao(n, r) {
+            var nfat = fatorial(n);
+            var nmenosr = fatorial(n-r);
+
+            return nfat / nmenosr;
+
+        }
+
+
+        //console.log(permutacao(6,3));
+
+        //Combinacao (n, r) = n!/(r!*(n-r)!)
+        /*function combinacao(n, r) {
+            var nfat = fatorial(n);
+            var rfat = fatorial(r);
+            var nmenosr = fatorial(n-r);
+            var denominador = rfat * nmenosr;
+
+            return nfat / denominador;
+
+        }
+
+        console.log(combinacao(6,3));*/
+
+        //Combinacao (n, r) = n!/(r!*(n-r)!)
+        //área de ds com 10 funcionários
+        //area de DE com 4 funcionários
+        //quero fazer squads de 4 pessoas: 2 pessoas de DS com 2 de DE
+        //quantos squads eu posso ter
+        //ps: lembrar que é sempre combinação
+        // DS: combinação(10,2)
+        // DE: combinação (4,2)
+        // Total de squads (squads de DS * squads de DE)
+
+        function combinacaods(n, r) {
+            var nfatds = fatorial(n);
+            var rfatds = fatorial(r);
+            var nmenosrds = fatorial(n-r);
+            var denominadords = rfatds * nmenosrds;
+
+            return nfatds / denominadords;
+
+        }
+
+        console.log(combinacaods(10,2));
+
+        function combinacaode(n, r) {
+            var nfatde = fatorial(n);
+            var rfatde = fatorial(r);
+            var nmenosrde = fatorial(n-r);
+            var denominadorde = rfatde * nmenosrde;
+
+            return nfatde / denominadorde;
+
+        }
+
+        console.log(combinacaode(4,2));
+
+        function squad() {
+            return (combinacaods(10,2)) * (combinacaode(4,2))
+        }
+
+        console.log(squad());
+
+        </script>
+    </body>
+</html>

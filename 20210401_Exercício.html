@@ -1,0 +1,59 @@
+<html>
+<head>
+    
+</head> 
+<body>
+    <script>
+        var a = document.createElement('canvas')
+        document.body.appendChild(a);
+        a.width = 800;
+        a.height = 600;
+        ctx = a.getContext('2d');
+        
+        var flakes = [];
+        for(i=0; i<250; i++){
+            flakes.push(initFlake());
+        }                 
+        
+        function drawFlake(desenhaai){
+            ctx.strokeStyle = "purple";
+            ctx.beginPath();
+            ctx.arc(desenhaai.x, desenhaai.y, desenhaai.radius, 0, Math.PI*2);
+            ctx.stroke();
+            
+        } 
+        
+        function updateFlake(zeDaSilva){
+            //zeDaSilva.y = zeDaSilva.y + zeDaSilva.yspeed 
+            zeDaSilva.y += zeDaSilva.yspeed  
+            // incluir IF se eu passei do limite, reseta
+        }
+        
+
+        function initFlake (){
+            return {   
+                x: Math.random() * a.width,
+                y: -5,
+                radius: 3,
+                yspeed: Math.random() * 3 + 1, 
+                
+            }
+        }
+        
+        function resetFlake (flake){
+            flake.y = 0
+        }
+
+        function anim() {
+            requestAnimationFrame(anim);
+            ctx.clearRect(0, 0, a.width, a.height);
+            for(i=0; i<flakes.length; i++){
+                drawFlake(flakes[i]);
+                updateFlake(flakes[i]);          
+            }
+        }
+        
+        anim();
+    </script>
+</body>
+</html>
